@@ -1,0 +1,120 @@
+﻿@page "/weather"
+@using Microsoft.AspNetCore.Components.Web
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<PageTitle>Weather</PageTitle>
+
+<h1>Weather</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @* pole do wpisywania tekstu *@
+    <div class="mb-3">
+        <label>Szukaj z opisu:</label>
+        <input class="form-control" @oninput="Input" placeholder="..." />
+    </div>
+    @* przycisk do filtrowania dni (>15 stopni) i przycisk Restore *@
+    <div class="mb-3">
+        <button class="btn btn-primary" @onclick="WarmDaysFilter">Pokaż ciepłe dni (>15°C)</button>
+        <button class="btn btn-secondary" @onclick="Restore">Przywróć wszystko</button>
+    </div>
+
+    @* wyswietlanie cieplych dni *@
+    <p role="status">Liczba ciepłych dni (>15°C): @warmDays</p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temp. (C)</th>
+                <th>Temp. (F)</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+                <tr>
+                    <td>@forecast.Date.ToShortDateString()</td>
+                    <td>@forecast.TemperatureC</td>
+                    <td>@forecast.TemperatureF</td>
+                    <td>@forecast.Summary</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private WeatherForecast[]? forecasts;           // lista wyswietlana w tabeli
+    private WeatherForecast[]? originalForecasts;   // kopia zapasowa wszystkich danych
+    private int warmDays = 0;                       // zmienna przechowujaca wynik liczenia cieplych dni
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Simulate asynchronous loading to demonstrate streaming rendering
+        await Task.Delay(500);
+
+        var startDate = DateOnly.FromDateTime(DateTime.Now);
+        var summaries = new[] { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };
+
+        // tworzenie prognozy na 10 dni
+        forecasts = Enumerable.Range(1, 10).Select(index => new WeatherForecast
+        {
+            Date = startDate.AddDays(index),
+            TemperatureC = Random.Shared.Next(-20, 55),
+            Summary = summaries[Random.Shared.Next(summaries.Length)]
+        }).ToArray();
+
+        originalForecasts = forecasts;              // zapisanie oryginalu
+        CountWarmDays();                            // wywolanie funkcji liczenia ciepłych dni
+    }
+
+    // funkcja ktora zlicza cieple dni
+    private void CountWarmDays()
+    {
+        if (forecasts != null)
+        {
+            warmDays = forecasts.Count(f => f.TemperatureC > 15);
+        }
+    }
+    // zostawianie tylko dni powyzej 15 stopni
+    private void WarmDaysFilter()
+    {
+        if (forecasts != null)
+        {
+            forecasts = forecasts.Where(f => f.TemperatureC > 15).ToArray();
+        }
+    }
+    // przewrocenie oryginalu
+    private void Restore()
+    {
+        forecasts = originalForecasts;
+    }
+    // wyszukiwarka
+    private void Input(ChangeEventArgs arg)
+    {
+        // zamiana tekstu z pola input na typ string
+        string filterText = arg.Value?.ToString() ?? "";
+
+        // szukanie tekstu w kolumnie summary
+        if (originalForecasts != null)
+        {
+            forecasts = originalForecasts.Where(f => f.Summary != null && f.Summary.Contains(filterText, StringComparison.OrdinalIgnoreCase)).ToArray();
+        }
+    }
+
+    private class WeatherForecast
+    {
+        public DateOnly Date { get; set; }
+        public int TemperatureC { get; set; }
+        public string? Summary { get; set; }
+        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    }
+}
