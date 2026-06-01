@@ -16,7 +16,7 @@ Wariant nieograniczony pozwala na pakowanie wielokrotności tego samego rodzaju 
 * `Solve(int capacity)`: Metoda w klasie `Problem`. Dokonuje sortowania dostępnych przedmiotów malejąco według współczynnika opłacalności (stosunek wartość/waga), a następnie w pętli dokłada najbardziej opłacalne przedmioty w ramach dostępnej pojemności plecaka.
 
 ## Struktura projektu
-![Struktura projektu](images/struktura_programu.jpg)
+![Struktura projektu](images/struktura_programu.png)
 
 ## Kluczowy fragment programu
-![Metoda Solve](images/fragment_programu.jpg)
+![Metoda Solve](images/fragment_programu.png)
