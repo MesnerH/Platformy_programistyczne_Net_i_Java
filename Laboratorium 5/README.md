@@ -18,10 +18,10 @@ Aplikacja webowa stworzona w technologii **ASP.NET Core Blazor** przy użyciu in
 * **Program.cs**: Główny plik startowy aplikacji, w którym skonfigurowano bezpieczne połączenie HTTPS i certyfikaty.
 
 ### Kluczowe metody i dyrektywy
-`CountWarmDays()`: Zlicza dni z temperaturą powyżej 15°C.
-`WarmDaysFilter()`: Odfiltrowuje i zostawia w tabeli wyłącznie dni z temperaturą powyżej 15°C.
-`Restore()`: Przywraca pełną listę prognoz z zachowanej kopii zapasowej.
-`Input(ChangeEventArgs arg)`: Przechwytuje tekst wpisany przez użytkownika i filtruje tabelę po kolumnie `Summary` (używając metody `Contains`).
+* `CountWarmDays()`: Zlicza dni z temperaturą powyżej 15°C.
+* `WarmDaysFilter()`: Odfiltrowuje i zostawia w tabeli wyłącznie dni z temperaturą powyżej 15°C.
+* `Restore()`: Przywraca pełną listę prognoz z zachowanej kopii zapasowej.
+* `Input(ChangeEventArgs arg)`: Przechwytuje tekst wpisany przez użytkownika i filtruje tabelę po kolumnie `Summary` (używając metody `Contains`).
 
 ## Struktura projektu
 ![Struktura projektu](images/struktura_projektu.jpg)
