@@ -1,22 +1,25 @@
-# Algorytm Zachłanny - Nieograniczony Problem Plecakowy (Knapsack)
-Autor: Hubert Missar
-Indeks: 280110
+# ImageApp
+Autor: Hubert Missar  
+Indeks: 280110  
 Repozytorium: https://github.com/MesnerH/Platformy_programistyczne_Net_i_Java
 
 ## Opis projektu
-Program rozwiązuje nieograniczony problem plecakowy przy użyciu algorytmu zachłannego Dantziga. Aplikacja generuje listę przedmiotów o losowych wagach i wartościach w zadanym przedziale, a następnie optymalizuje zawartość plecaka tak, aby uzyskać jak największą wartość sumaryczną, nie przekraczając dopuszczalnej pojemności. 
-
-Wariant nieograniczony pozwala na pakowanie wielokrotności tego samego rodzaju przedmiotu (aż do całkowitego wyczerpania wolnego miejsca). Dane wejściowe takie jak ziarno losowania (`seed`), liczba przedmiotów (`n`), zakres losowania oraz pojemność plecaka są wprowadzane interaktywnie przez użytkownika w konsoli.
+Aplikacja okienkowa napisana w technologii JavaFX umożliwiająca wczytywanie plików obrazów w formacie `.jpg`, wykonywanie operacji przetwarzania obrazu oraz zapis wynikowego pliku. Aplikacja obsługuje operacje takie jak negatyw, skala szarości, progowanie oraz konturowanie.
 
 ### Kluczowe klasy
-* `Item`: Model danych reprezentujący pojedynczy rodzaj przedmiotu, posiadający unikalne ID, wagę oraz wartość.
-* `Problem`: Odpowiada za generowanie losowej instancji testowej oraz zawiera logikę biznesową algorytmu.
-* `Result`: Klasa z końcowymi wynikami algorytmu.
-### Kluczowa metoda
-* `Solve(int capacity)`: Metoda w klasie `Problem`. Dokonuje sortowania dostępnych przedmiotów malejąco według współczynnika opłacalności (stosunek wartość/waga), a następnie w pętli dokłada najbardziej opłacalne przedmioty w ramach dostępnej pojemności plecaka.
+* `Main`: Punkt wejścia aplikacji, inicjalizuje okno JavaFX i ustawia minimalny rozmiar sceny.
+* `MainViewController`: Główna klasa kontrolera odpowiedzialna za budowę interfejsu użytkownika, obsługę zdarzeń oraz logikę wszystkich operacji przetwarzania obrazu.
+* `Toast`: Klasa pomocnicza wyświetlająca krótkie komunikaty typu toast.
+
+### Kluczowe metody
+* `handleLoadFile()`: Odpowiada za wczytanie pliku obrazu z dysku.
+* `saveFile(String targetName)`: Odpowiada za zapis przetworzonego obrazu na dysk.
 
 ## Struktura projektu
 ![Struktura projektu](images/struktura_projektu.png)
 
-## Kluczowy fragment programu
-![Metoda Solve](images/fragment_programu.png)
+## Kluczowe fragmenty programu
+![Metoda saveFile](images/fragment_programu1.png)
+
+![handleLoadFile](images/fragment_programu2.png)
+
